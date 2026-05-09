@@ -1,50 +1,69 @@
-# Welcome to your Expo app 👋
+MyNotes App - Personal Productivity Mobile
+MyNotes es una aplicación móvil moderna para la gestión de notas personales, desarrollada con React Native y Expo. Este proyecto nace como una iniciativa para dominar el desarrollo de aplicaciones móviles nativas, aplicando principios de arquitectura limpia y una experiencia de usuario (UX) fluida.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+La aplicación permite a los usuarios capturar ideas rápidamente, organizar sus pensamientos y mantener su información segura directamente en su dispositivo.
 
-## Get started
+✨ Funcionalidades Principales
+Gestión Total de Notas: Flujo completo de creación, edición y eliminación de notas.
 
-1. Install dependencies
+Sistema de Favoritos: Marca tus notas más importantes para un acceso rápido.
 
-   ```bash
-   npm install
-   ```
+Búsqueda Inteligente: Filtra y encuentra notas específicas en tiempo real.
 
-2. Start the app
+Persistencia Local: Gracias a AsyncStorage, tus notas se mantienen guardadas incluso si cierras la aplicación o reinicias el teléfono.
 
-   ```bash
-   npx expo start
-   ```
+Diseño Responsivo: Interfaz adaptada para una visualización óptima en diversos tamaños de pantalla y dispositivos.
 
-In the output, you'll find options to open the app in a
+🛠️ Stack Tecnológico
+Framework: Expo (SDK 55) para un desarrollo ágil.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Core: React Native para renderizado nativo.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Estado: React Hooks (useState, useEffect).
 
-## Get a fresh project
+Almacenamiento: AsyncStorage (Persistencia local clave-valor).
 
-When you're ready, run:
+Estilos: StyleSheet de React Native (CSS-in-JS).
 
-```bash
-npm run reset-project
-```
+ Guía de Instalación
+Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+1. Prerrequisitos
+Tener instalado Node.js (LTS).
 
-## Learn more
+Instalar la aplicación Expo Go en tu dispositivo móvil (Android / iOS).
 
-To learn more about developing your project with Expo, look at the following resources:
+2. Clonar y Configurar
+Clona el repositorio y entra en la carpeta del proyecto:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Bash
+git clone https://github.com/tu-usuario/notas-app.git
+cd notas-app
+3. Instalar Dependencias
+Instala los paquetes necesarios utilizando npm:
 
-## Join the community
+Bash
+npm install
+4. Ejecutar la Aplicación
+Inicia el servidor de desarrollo de Expo:
 
-Join our community of developers creating universal apps.
+Bash
+npx expo start
+5. Visualización
+Una vez que aparezca el código QR en tu terminal:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Abre la app Expo Go en tu celular.
+
+Escanea el código QR.
+
+¡La aplicación se cargará automáticamente!
+
+📂 Estructura de Carpetas
+Plaintext
+src/
+ ├── components/   # Componentes atómicos y reutilizables.
+ ├── screens/      # Pantallas principales (Home, Editor, etc.).
+ ├── styles/       # Temas, colores y estilos globales.
+ ├── data/         # Lógica de manejo de datos y persistencia.
+ └── hooks/        # Lógica de negocio extraída en hooks.
+Desarrollado con 💻 por Andrés Felipe Soto Quintero

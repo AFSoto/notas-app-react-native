@@ -1,27 +1,27 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  View,
+  FlatList,
+  Pressable,
+  StyleSheet,
   Text,
   TextInput,
-  Pressable,
-  FlatList,
-  StyleSheet,
-} from 'react-native';
+  View,
+} from "react-native";
 
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const [note, setNote] = useState('');
+  const [note, setNote] = useState("");
 
   const [notes, setNotes] = useState([
     {
-      id: '1',
-      title: 'Comprar pan',
+      id: "1",
+      title: "Comprar pan",
     },
 
     {
-      id: '2',
-      title: 'Estudiar React Native',
+      id: "2",
+      title: "Estudiar React Native",
     },
   ]);
 
@@ -35,7 +35,13 @@ export default function HomeScreen() {
 
     setNotes([...notes, newNote]);
 
-    setNote('');
+    setNote("");
+  }
+
+  function deleteNote(id: string) {
+    const filteredNotes = notes.filter((note) => note.id !== id);
+
+    setNotes(filteredNotes);
   }
 
   return (
@@ -60,6 +66,13 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <View style={styles.noteCard}>
             <Text style={styles.noteText}>{item.title}</Text>
+
+            <Pressable
+              style={styles.deleteButton}
+              onPress={() => deleteNote(item.id)}
+            >
+              <Text style={styles.deleteButtonText}>Eliminar</Text>
+            </Pressable>
           </View>
         )}
       />
@@ -75,36 +88,36 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
 
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 10,
     padding: 15,
     marginBottom: 15,
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
   },
 
   button: {
-    backgroundColor: '#000',
+    backgroundColor: "#000",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 20,
   },
 
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   noteCard: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: "#f3f4f6",
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
@@ -112,5 +125,18 @@ const styles = StyleSheet.create({
 
   noteText: {
     fontSize: 16,
+  },
+
+  deleteButton: {
+    marginTop: 10,
+    backgroundColor: "#dc2626",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+
+  deleteButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

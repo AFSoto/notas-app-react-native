@@ -1,134 +1,27 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput
-} from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, TextInput } from "react-native";
 import NoteCard from "../../components/NoteCard";
+import { useNotes } from "../../hooks/useNotes";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const [note, setNote] = useState("");
+  const {
+    note,
+    setNote,
 
-  const [editingId, setEditingId] = useState<string | null>(null);
+    search,
+    setSearch,
 
-  const [search, setSearch] = useState("");
+    editingId,
 
-  const [notes, setNotes] = useState([
-    {
-      id: "1",
-      title: "Comprar pan",
-      favorite: false,
-    },
+    filteredNotes,
 
-    {
-      id: "2",
-      title: "Estudiar React Native",
-      favorite: false,
-    },
-  ]);
-
-  function addNote() {
-    if (!note.trim()) return;
-
-    const newNote = {
-      id: Date.now().toString(),
-      title: note,
-      favorite: false,
-    };
-
-    setNotes([...notes, newNote]);
-
-    setNote("");
-  }
-
-  function deleteNote(id: string) {
-    const filteredNotes = notes.filter((note) => note.id !== id);
-
-    setNotes(filteredNotes);
-  }
-
-  function editNote(id: string) {
-    const selectedNote = notes.find((note) => note.id === id);
-
-    if (!selectedNote) return;
-
-    setNote(selectedNote.title);
-
-    setEditingId(id);
-  }
-
-  function updateNote() {
-    const updatedNotes = notes.map((noteItem) => {
-      if (noteItem.id === editingId) {
-        return {
-          ...noteItem,
-          title: note,
-        };
-      }
-
-      return noteItem;
-    });
-
-    setNotes(updatedNotes);
-
-    setEditingId(null);
-
-    setNote("");
-  }
-
-  function toggleFavorite(id: string) {
-    const updatedNotes = notes.map((noteItem) => {
-      if (noteItem.id === id) {
-        return {
-          ...noteItem,
-          favorite: !noteItem.favorite,
-        };
-      }
-
-      return noteItem;
-    });
-
-    setNotes(updatedNotes);
-  }
-
-  async function saveNotes(notesToSave: any) {
-    try {
-      const jsonValue = JSON.stringify(notesToSave);
-
-      await AsyncStorage.setItem("notes", jsonValue);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function loadNotes() {
-    try {
-      const storedNotes = await AsyncStorage.getItem("notes");
-
-      if (storedNotes !== null) {
-        setNotes(JSON.parse(storedNotes));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const filteredNotes = notes.filter((noteItem) =>
-    noteItem.title.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  useEffect(() => {
-    loadNotes();
-  }, []);
-
-  useEffect(() => {
-    saveNotes(notes);
-  }, [notes]);
+    addNote,
+    deleteNote,
+    editNote,
+    updateNote,
+    toggleFavorite,
+  } = useNotes();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -209,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  
+
   searchInput: {
     borderWidth: 1,
     borderColor: "#d1d5db",

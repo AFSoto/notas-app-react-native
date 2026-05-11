@@ -48,18 +48,30 @@ export default function NoteCard({
 
 const styles = StyleSheet.create({
   noteCard: {
-    backgroundColor: "#f3f4f6",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    backgroundColor: "#fff",
+    padding: 18,
+    borderRadius: 18,
+    marginBottom: 14,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+
+    elevation: 3,
   },
 
   noteText: {
-    fontSize: 16,
+    fontSize: 17,
+    color: "#111827",
+    fontWeight: "600",
   },
 
   favoriteButton: {
-    marginTop: 10,
+    marginTop: 12,
     backgroundColor: "#f59e0b",
     padding: 10,
     borderRadius: 8,
@@ -72,7 +84,7 @@ const styles = StyleSheet.create({
   },
 
   editButton: {
-    marginTop: 10,
+    marginTop: 12,
     backgroundColor: "#2563eb",
     padding: 10,
     borderRadius: 8,
@@ -85,7 +97,7 @@ const styles = StyleSheet.create({
   },
 
   deleteButton: {
-    marginTop: 10,
+    marginTop: 12,
     backgroundColor: "#dc2626",
     padding: 10,
     borderRadius: 8,

@@ -70,29 +70,32 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    backgroundColor: "#f9fafb",
   },
 
   title: {
-    fontSize: 30,
+    fontSize: 34,
     fontWeight: "bold",
     marginBottom: 20,
+    color: "#111827",
   },
 
   input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 10,
-    padding: 15,
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    padding: 16,
     marginBottom: 15,
     fontSize: 16,
-    color: "#fff",
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
   },
 
   button: {
-    backgroundColor: "#000",
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: "#111827",
+    padding: 18,
+    borderRadius: 14,
     alignItems: "center",
     marginBottom: 20,
   },
@@ -104,12 +107,12 @@ const styles = StyleSheet.create({
   },
 
   searchInput: {
-    borderWidth: 1,
-    borderColor: "#d1d5db",
-    borderRadius: 10,
-    padding: 15,
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    padding: 16,
     marginBottom: 15,
     fontSize: 16,
-    backgroundColor: "#f3f4f6",
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
   },
 });

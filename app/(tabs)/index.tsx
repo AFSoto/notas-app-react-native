@@ -1,4 +1,5 @@
-import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from 'react';
 import {
   FlatList,
   Pressable,
@@ -95,9 +96,39 @@ export default function HomeScreen() {
     setNotes(updatedNotes);
   }
 
+  async function saveNotes(notesToSave: any) {
+    try {
+      const jsonValue = JSON.stringify(notesToSave);
+
+      await AsyncStorage.setItem("notes", jsonValue);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function loadNotes() {
+    try {
+      const storedNotes = await AsyncStorage.getItem("notes");
+
+      if (storedNotes !== null) {
+        setNotes(JSON.parse(storedNotes));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const filteredNotes = notes.filter((noteItem) =>
     noteItem.title.toLowerCase().includes(search.toLowerCase()),
   );
+
+  useEffect(() => {
+    loadNotes();
+  }, []);
+
+  useEffect(() => {
+    saveNotes(notes);
+  }, [notes]);
 
   return (
     <SafeAreaView style={styles.container}>

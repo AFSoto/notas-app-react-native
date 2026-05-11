@@ -19,11 +19,13 @@ export default function HomeScreen() {
     {
       id: "1",
       title: "Comprar pan",
+      favorite: false,
     },
 
     {
       id: "2",
       title: "Estudiar React Native",
+      favorite: false,
     },
   ]);
 
@@ -33,6 +35,7 @@ export default function HomeScreen() {
     const newNote = {
       id: Date.now().toString(),
       title: note,
+      favorite: false,
     };
 
     setNotes([...notes, newNote]);
@@ -75,6 +78,21 @@ export default function HomeScreen() {
     setNote("");
   }
 
+  function toggleFavorite(id: string) {
+    const updatedNotes = notes.map((noteItem) => {
+      if (noteItem.id === id) {
+        return {
+          ...noteItem,
+          favorite: !noteItem.favorite,
+        };
+      }
+
+      return noteItem;
+    });
+
+    setNotes(updatedNotes);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Mi App de Notas 📝</Text>
@@ -101,7 +119,18 @@ export default function HomeScreen() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.noteCard}>
-            <Text style={styles.noteText}>{item.title}</Text>
+            <Text style={styles.noteText}>
+              {item.favorite ? "⭐" : "☆"} {item.title}
+            </Text>
+
+            <Pressable
+              style={styles.favoriteButton}
+              onPress={() => toggleFavorite(item.id)}
+            >
+              <Text style={styles.favoriteButtonText}>
+                {item.favorite ? "Quitar Favorita" : "Favorita"}
+              </Text>
+            </Pressable>
 
             <Pressable
               style={styles.editButton}
@@ -192,6 +221,19 @@ const styles = StyleSheet.create({
   },
 
   editButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  favoriteButton: {
+    marginTop: 10,
+    backgroundColor: "#f59e0b",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+
+  favoriteButtonText: {
     color: "#fff",
     fontWeight: "bold",
   },

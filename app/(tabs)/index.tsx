@@ -1,13 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
-  View,
+  TextInput
 } from "react-native";
+import NoteCard from "../../components/NoteCard";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -162,34 +162,12 @@ export default function HomeScreen() {
         data={filteredNotes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.noteCard}>
-            <Text style={styles.noteText}>
-              {item.favorite ? "⭐" : "☆"} {item.title}
-            </Text>
-
-            <Pressable
-              style={styles.favoriteButton}
-              onPress={() => toggleFavorite(item.id)}
-            >
-              <Text style={styles.favoriteButtonText}>
-                {item.favorite ? "Quitar Favorita" : "Favorita"}
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.editButton}
-              onPress={() => editNote(item.id)}
-            >
-              <Text style={styles.editButtonText}>Editar</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.deleteButton}
-              onPress={() => deleteNote(item.id)}
-            >
-              <Text style={styles.deleteButtonText}>Eliminar</Text>
-            </Pressable>
-          </View>
+          <NoteCard
+            item={item}
+            onDelete={deleteNote}
+            onEdit={editNote}
+            onToggleFavorite={toggleFavorite}
+          />
         )}
       />
     </SafeAreaView>
@@ -231,57 +209,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-
-  noteCard: {
-    backgroundColor: "#f3f4f6",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-
-  noteText: {
-    fontSize: 16,
-  },
-
-  deleteButton: {
-    marginTop: 10,
-    backgroundColor: "#dc2626",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-
-  deleteButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  editButton: {
-    marginTop: 10,
-    backgroundColor: "#2563eb",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-
-  editButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  favoriteButton: {
-    marginTop: 10,
-    backgroundColor: "#f59e0b",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-
-  favoriteButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
+  
   searchInput: {
     borderWidth: 1,
     borderColor: "#d1d5db",

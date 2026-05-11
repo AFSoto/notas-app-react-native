@@ -1,294 +1,98 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from 'react';
-import {
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Image } from 'expo-image';
+import { Platform, StyleSheet } from 'react-native';
 
-import { SafeAreaView } from "react-native-safe-area-context";
+import { HelloWave } from '@/components/hello-wave';
+import ParallaxScrollView from '@/components/parallax-scroll-view';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
-  const [note, setNote] = useState("");
-
-  const [editingId, setEditingId] = useState<string | null>(null);
-
-  const [search, setSearch] = useState("");
-
-  const [notes, setNotes] = useState([
-    {
-      id: "1",
-      title: "Comprar pan",
-      favorite: false,
-    },
-
-    {
-      id: "2",
-      title: "Estudiar React Native",
-      favorite: false,
-    },
-  ]);
-
-  function addNote() {
-    if (!note.trim()) return;
-
-    const newNote = {
-      id: Date.now().toString(),
-      title: note,
-      favorite: false,
-    };
-
-    setNotes([...notes, newNote]);
-
-    setNote("");
-  }
-
-  function deleteNote(id: string) {
-    const filteredNotes = notes.filter((note) => note.id !== id);
-
-    setNotes(filteredNotes);
-  }
-
-  function editNote(id: string) {
-    const selectedNote = notes.find((note) => note.id === id);
-
-    if (!selectedNote) return;
-
-    setNote(selectedNote.title);
-
-    setEditingId(id);
-  }
-
-  function updateNote() {
-    const updatedNotes = notes.map((noteItem) => {
-      if (noteItem.id === editingId) {
-        return {
-          ...noteItem,
-          title: note,
-        };
-      }
-
-      return noteItem;
-    });
-
-    setNotes(updatedNotes);
-
-    setEditingId(null);
-
-    setNote("");
-  }
-
-  function toggleFavorite(id: string) {
-    const updatedNotes = notes.map((noteItem) => {
-      if (noteItem.id === id) {
-        return {
-          ...noteItem,
-          favorite: !noteItem.favorite,
-        };
-      }
-
-      return noteItem;
-    });
-
-    setNotes(updatedNotes);
-  }
-
-  async function saveNotes(notesToSave: any) {
-    try {
-      const jsonValue = JSON.stringify(notesToSave);
-
-      await AsyncStorage.setItem("notes", jsonValue);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function loadNotes() {
-    try {
-      const storedNotes = await AsyncStorage.getItem("notes");
-
-      if (storedNotes !== null) {
-        setNotes(JSON.parse(storedNotes));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const filteredNotes = notes.filter((noteItem) =>
-    noteItem.title.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  useEffect(() => {
-    loadNotes();
-  }, []);
-
-  useEffect(() => {
-    saveNotes(notes);
-  }, [notes]);
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Mi App de Notas 📝</Text>
+    <ParallaxScrollView
+      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerImage={
+        <Image
+          source={require('@/assets/images/partial-react-logo.png')}
+          style={styles.reactLogo}
+        />
+      }>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText type="title">Welcome!</ThemedText>
+        <HelloWave />
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText>
+          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
+          Press{' '}
+          <ThemedText type="defaultSemiBold">
+            {Platform.select({
+              ios: 'cmd + d',
+              android: 'cmd + m',
+              web: 'F12',
+            })}
+          </ThemedText>{' '}
+          to open developer tools.
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <Link href="/modal">
+          <Link.Trigger>
+            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+          </Link.Trigger>
+          <Link.Preview />
+          <Link.Menu>
+            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
+            <Link.MenuAction
+              title="Share"
+              icon="square.and.arrow.up"
+              onPress={() => alert('Share pressed')}
+            />
+            <Link.Menu title="More" icon="ellipsis">
+              <Link.MenuAction
+                title="Delete"
+                icon="trash"
+                destructive
+                onPress={() => alert('Delete pressed')}
+              />
+            </Link.Menu>
+          </Link.Menu>
+        </Link>
 
-      <TextInput
-        placeholder="Buscar nota..."
-        value={search}
-        onChangeText={setSearch}
-        style={styles.searchInput}
-      />
-
-      <TextInput
-        placeholder="Escribe una nota..."
-        placeholderTextColor="#999"
-        value={note}
-        onChangeText={setNote}
-        style={styles.input}
-      />
-
-      <Pressable
-        style={styles.button}
-        onPress={editingId ? updateNote : addNote}
-      >
-        <Text style={styles.buttonText}>
-          {editingId ? "Guardar Cambios" : "Agregar Nota"}
-        </Text>
-      </Pressable>
-
-      <FlatList
-        data={filteredNotes}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.noteCard}>
-            <Text style={styles.noteText}>
-              {item.favorite ? "⭐" : "☆"} {item.title}
-            </Text>
-
-            <Pressable
-              style={styles.favoriteButton}
-              onPress={() => toggleFavorite(item.id)}
-            >
-              <Text style={styles.favoriteButtonText}>
-                {item.favorite ? "Quitar Favorita" : "Favorita"}
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.editButton}
-              onPress={() => editNote(item.id)}
-            >
-              <Text style={styles.editButtonText}>Editar</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.deleteButton}
-              onPress={() => deleteNote(item.id)}
-            >
-              <Text style={styles.deleteButtonText}>Eliminar</Text>
-            </Pressable>
-          </View>
-        )}
-      />
-    </SafeAreaView>
+        <ThemedText>
+          {`Tap the Explore tab to learn more about what's included in this starter app.`}
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
+        <ThemedText>
+          {`When you're ready, run `}
+          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
+          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
+          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
+          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+        </ThemedText>
+      </ThemedView>
+    </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
-
-  title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginBottom: 20,
+  stepContainer: {
+    gap: 8,
+    marginBottom: 8,
   },
-
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    fontSize: 16,
-    color: "#fff",
-  },
-
-  button: {
-    backgroundColor: "#000",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-
-  noteCard: {
-    backgroundColor: "#f3f4f6",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-
-  noteText: {
-    fontSize: 16,
-  },
-
-  deleteButton: {
-    marginTop: 10,
-    backgroundColor: "#dc2626",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-
-  deleteButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  editButton: {
-    marginTop: 10,
-    backgroundColor: "#2563eb",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-
-  editButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  favoriteButton: {
-    marginTop: 10,
-    backgroundColor: "#f59e0b",
-    padding: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-
-  favoriteButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  searchInput: {
-    borderWidth: 1,
-    borderColor: "#d1d5db",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    fontSize: 16,
-    backgroundColor: "#f3f4f6",
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
   },
 });

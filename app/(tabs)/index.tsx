@@ -13,6 +13,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function HomeScreen() {
   const [note, setNote] = useState("");
 
+  const [editingId, setEditingId] = useState<string | null>(null);
+
   const [notes, setNotes] = useState([
     {
       id: "1",
@@ -44,6 +46,35 @@ export default function HomeScreen() {
     setNotes(filteredNotes);
   }
 
+  function editNote(id: string) {
+    const selectedNote = notes.find((note) => note.id === id);
+
+    if (!selectedNote) return;
+
+    setNote(selectedNote.title);
+
+    setEditingId(id);
+  }
+
+  function updateNote() {
+    const updatedNotes = notes.map((noteItem) => {
+      if (noteItem.id === editingId) {
+        return {
+          ...noteItem,
+          title: note,
+        };
+      }
+
+      return noteItem;
+    });
+
+    setNotes(updatedNotes);
+
+    setEditingId(null);
+
+    setNote("");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Mi App de Notas 📝</Text>
@@ -56,8 +87,13 @@ export default function HomeScreen() {
         style={styles.input}
       />
 
-      <Pressable style={styles.button} onPress={addNote}>
-        <Text style={styles.buttonText}>Agregar Nota</Text>
+      <Pressable
+        style={styles.button}
+        onPress={editingId ? updateNote : addNote}
+      >
+        <Text style={styles.buttonText}>
+          {editingId ? "Guardar Cambios" : "Agregar Nota"}
+        </Text>
       </Pressable>
 
       <FlatList
@@ -66,6 +102,13 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <View style={styles.noteCard}>
             <Text style={styles.noteText}>{item.title}</Text>
+
+            <Pressable
+              style={styles.editButton}
+              onPress={() => editNote(item.id)}
+            >
+              <Text style={styles.editButtonText}>Editar</Text>
+            </Pressable>
 
             <Pressable
               style={styles.deleteButton}
@@ -136,6 +179,19 @@ const styles = StyleSheet.create({
   },
 
   deleteButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  editButton: {
+    marginTop: 10,
+    backgroundColor: "#2563eb",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+
+  editButtonText: {
     color: "#fff",
     fontWeight: "bold",
   },

@@ -15,6 +15,8 @@ export default function HomeScreen() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
+  const [search, setSearch] = useState("");
+
   const [notes, setNotes] = useState([
     {
       id: "1",
@@ -93,9 +95,20 @@ export default function HomeScreen() {
     setNotes(updatedNotes);
   }
 
+  const filteredNotes = notes.filter((noteItem) =>
+    noteItem.title.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Mi App de Notas 📝</Text>
+
+      <TextInput
+        placeholder="Buscar nota..."
+        value={search}
+        onChangeText={setSearch}
+        style={styles.searchInput}
+      />
 
       <TextInput
         placeholder="Escribe una nota..."
@@ -115,7 +128,7 @@ export default function HomeScreen() {
       </Pressable>
 
       <FlatList
-        data={notes}
+        data={filteredNotes}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.noteCard}>
@@ -236,5 +249,15 @@ const styles = StyleSheet.create({
   favoriteButtonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+
+  searchInput: {
+    borderWidth: 1,
+    borderColor: "#d1d5db",
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 15,
+    fontSize: 16,
+    backgroundColor: "#f3f4f6",
   },
 });

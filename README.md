@@ -1,69 +1,116 @@
-MyNotes App - Personal Productivity Mobile
-MyNotes es una aplicación móvil moderna para la gestión de notas personales, desarrollada con React Native y Expo. Este proyecto nace como una iniciativa para dominar el desarrollo de aplicaciones móviles nativas, aplicando principios de arquitectura limpia y una experiencia de usuario (UX) fluida.
+📝 Notes App
+Aplicación móvil de notas desarrollada con React Native y Expo como proyecto de práctica y aprendizaje.
+La aplicación permite crear, editar, eliminar, buscar y marcar notas favoritas, además de persistir la información localmente en el dispositivo.
 
-La aplicación permite a los usuarios capturar ideas rápidamente, organizar sus pensamientos y mantener su información segura directamente en su dispositivo.
+✨ Funcionalidades
 
-✨ Funcionalidades Principales
-Gestión Total de Notas: Flujo completo de creación, edición y eliminación de notas.
 
-Sistema de Favoritos: Marca tus notas más importantes para un acceso rápido.
+✅ Crear notas
 
-Búsqueda Inteligente: Filtra y encuentra notas específicas en tiempo real.
 
-Persistencia Local: Gracias a AsyncStorage, tus notas se mantienen guardadas incluso si cierras la aplicación o reinicias el teléfono.
+✅ Editar notas
 
-Diseño Responsivo: Interfaz adaptada para una visualización óptima en diversos tamaños de pantalla y dispositivos.
 
-🛠️ Stack Tecnológico
-Framework: Expo (SDK 55) para un desarrollo ágil.
+✅ Eliminar notas
 
-Core: React Native para renderizado nativo.
 
-Estado: React Hooks (useState, useEffect).
+✅ Marcar favoritas
 
-Almacenamiento: AsyncStorage (Persistencia local clave-valor).
 
-Estilos: StyleSheet de React Native (CSS-in-JS).
+✅ Buscar notas
 
- Guía de Instalación
-Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 
-1. Prerrequisitos
-Tener instalado Node.js (LTS).
+✅ Persistencia local con AsyncStorage
 
-Instalar la aplicación Expo Go en tu dispositivo móvil (Android / iOS).
 
-2. Clonar y Configurar
-Clona el repositorio y entra en la carpeta del proyecto:
+✅ Navegación entre pantallas
 
-Bash
-git clone https://github.com/tu-usuario/notas-app.git
-cd notas-app
-3. Instalar Dependencias
-Instala los paquetes necesarios utilizando npm:
 
-Bash
+✅ Estado global con Zustand
+
+
+✅ Animaciones con Reanimated
+
+
+✅ Build APK Android con EAS Build
+
+
+
+📱 Tecnologías utilizadas
+
+
+React Native
+
+
+Expo
+
+
+TypeScript
+
+
+Zustand
+
+
+Expo Router
+
+
+AsyncStorage
+
+
+React Native Reanimated
+
+
+EAS Build
+
+
+
+📂 Estructura del proyecto
+app/ ├── index.tsx └── note/      └── [id].tsxsrc/ ├── components/ ├── hooks/ ├── store/ └── styles/
+
+🚀 Instalación
+1. Clonar repositorio
+git clone https://github.com/AFSoto/notas-app-react-native.git
+
+2. Instalar dependencias
 npm install
-4. Ejecutar la Aplicación
-Inicia el servidor de desarrollo de Expo:
 
-Bash
+3. Ejecutar proyecto
 npx expo start
-5. Visualización
-Una vez que aparezca el código QR en tu terminal:
 
-Abre la app Expo Go en tu celular.
+📦 Generar APK Android
+La aplicación utiliza:
+EAS Build
+Configurar EAS
+eas build:configure
 
-Escanea el código QR.
+Generar APK
+eas build -p android --profile preview
 
-¡La aplicación se cargará automáticamente!
+🧠 Conceptos aprendidos
+Durante el desarrollo de esta app se trabajó con:
 
-📂 Estructura de Carpetas
-Plaintext
-src/
- ├── components/   # Componentes atómicos y reutilizables.
- ├── screens/      # Pantallas principales (Home, Editor, etc.).
- ├── styles/       # Temas, colores y estilos globales.
- ├── data/         # Lógica de manejo de datos y persistencia.
- └── hooks/        # Lógica de negocio extraída en hooks.
-Desarrollado con 💻 por Andrés Felipe Soto Quintero
+
+Hooks personalizados
+
+
+Estado global
+
+
+Persistencia local
+
+
+Navegación dinámica
+
+
+Componentes reutilizables
+
+
+Animaciones móviles
+
+
+Arquitectura básica React Native
+
+
+Build y distribución Android
+
+

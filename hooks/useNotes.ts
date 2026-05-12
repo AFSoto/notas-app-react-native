@@ -4,6 +4,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useNotesStore } from "../store/notes.store";
 
+import { LayoutAnimation } from "react-native";
+
+
+
 export interface Note {
   id: string;
   title: string;
@@ -26,6 +30,7 @@ export function useNotes() {
   );
 
   function addNote() {
+    
     if (!note.trim()) return;
 
     const newNote: Note = {
@@ -34,6 +39,8 @@ export function useNotes() {
       favorite: false,
     };
 
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
     setNotes([...notes, newNote]);
 
     setNote("");
@@ -41,6 +48,8 @@ export function useNotes() {
 
   function deleteNote(id: string) {
     const filtered = notes.filter((noteItem) => noteItem.id !== id);
+
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
     setNotes(filtered);
   }
@@ -85,6 +94,10 @@ export function useNotes() {
 
       return noteItem;
     });
+
+    LayoutAnimation.configureNext(
+  LayoutAnimation.Presets.easeInEaseOut
+);
 
     setNotes(updated);
   }

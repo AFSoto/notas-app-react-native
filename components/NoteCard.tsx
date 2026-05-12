@@ -1,6 +1,11 @@
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text } from "react-native";
 
+import Animated, {
+  FadeInDown,
+  FadeOutUp,
+} from "react-native-reanimated";
+
 interface NoteCardProps {
   item: {
     id: string;
@@ -22,6 +27,10 @@ export default function NoteCard({
   onToggleFavorite,
 }: NoteCardProps) {
   return (
+    <Animated.View
+    entering={FadeInDown.springify()}
+    exiting={FadeOutUp.springify()}
+  >
     <Pressable
       style={styles.noteCard}
       onPress={() =>
@@ -49,6 +58,7 @@ export default function NoteCard({
         <Text style={styles.deleteButtonText}>Eliminar</Text>
       </Pressable>
     </Pressable>
+    </Animated.View>
   );
 }
 

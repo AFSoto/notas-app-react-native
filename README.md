@@ -1,50 +1,116 @@
-# Welcome to your Expo app 👋
+📝 Notes App
+Aplicación móvil de notas desarrollada con React Native y Expo como proyecto de práctica y aprendizaje.
+La aplicación permite crear, editar, eliminar, buscar y marcar notas favoritas, además de persistir la información localmente en el dispositivo.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+✨ Funcionalidades
 
-## Get started
 
-1. Install dependencies
+✅ Crear notas
 
-   ```bash
-   npm install
-   ```
 
-2. Start the app
+✅ Editar notas
 
-   ```bash
-   npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+✅ Eliminar notas
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+✅ Marcar favoritas
 
-## Get a fresh project
 
-When you're ready, run:
+✅ Buscar notas
 
-```bash
-npm run reset-project
-```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+✅ Persistencia local con AsyncStorage
 
-## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
+✅ Navegación entre pantallas
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
+✅ Estado global con Zustand
 
-Join our community of developers creating universal apps.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+✅ Animaciones con Reanimated
+
+
+✅ Build APK Android con EAS Build
+
+
+
+📱 Tecnologías utilizadas
+
+
+React Native
+
+
+Expo
+
+
+TypeScript
+
+
+Zustand
+
+
+Expo Router
+
+
+AsyncStorage
+
+
+React Native Reanimated
+
+
+EAS Build
+
+
+
+📂 Estructura del proyecto
+app/ ├── index.tsx └── note/      └── [id].tsxsrc/ ├── components/ ├── hooks/ ├── store/ └── styles/
+
+🚀 Instalación
+1. Clonar repositorio
+git clone https://github.com/AFSoto/notas-app-react-native.git
+
+1. Instalar dependencias
+npm install
+
+1. Ejecutar proyecto
+npx expo start
+
+📦 Generar APK Android
+La aplicación utiliza:
+EAS Build
+Configurar EAS
+eas build:configure
+
+Generar APK
+eas build -p android --profile preview
+
+🧠 Conceptos aprendidos
+Durante el desarrollo de esta app se trabajó con:
+
+
+Hooks personalizados
+
+
+Estado global
+
+
+Persistencia local
+
+
+Navegación dinámica
+
+
+Componentes reutilizables
+
+
+Animaciones móviles
+
+
+Arquitectura básica React Native
+
+
+Build y distribución Android
+
+

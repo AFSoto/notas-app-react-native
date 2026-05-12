@@ -1,0 +1,127 @@
+import { router } from "expo-router";
+import { Pressable, StyleSheet, Text } from "react-native";
+
+import Animated, {
+  FadeInDown,
+  FadeOutUp,
+} from "react-native-reanimated";
+
+interface NoteCardProps {
+  item: {
+    id: string;
+    title: string;
+    favorite: boolean;
+  };
+
+  onDelete: (id: string) => void;
+
+  onEdit: (id: string) => void;
+
+  onToggleFavorite: (id: string) => void;
+}
+
+export default function NoteCard({
+  item,
+  onDelete,
+  onEdit,
+  onToggleFavorite,
+}: NoteCardProps) {
+  return (
+    <Animated.View
+    entering={FadeInDown.springify()}
+    exiting={FadeOutUp.springify()}
+  >
+    <Pressable
+      style={styles.noteCard}
+      onPress={() =>
+        router.push(`/note/${item.id}`)
+      }
+    >
+      <Text style={styles.noteText}>
+        {item.favorite ? "⭐" : "☆"} {item.title}
+      </Text>
+
+      <Pressable
+        style={styles.favoriteButton}
+        onPress={() => onToggleFavorite(item.id)}
+      >
+        <Text style={styles.favoriteButtonText}>
+          {item.favorite ? "Quitar Favorita" : "Favorita"}
+        </Text>
+      </Pressable>
+
+      <Pressable style={styles.editButton} onPress={() => onEdit(item.id)}>
+        <Text style={styles.editButtonText}>Editar</Text>
+      </Pressable>
+
+      <Pressable style={styles.deleteButton} onPress={() => onDelete(item.id)}>
+        <Text style={styles.deleteButtonText}>Eliminar</Text>
+      </Pressable>
+    </Pressable>
+    </Animated.View>
+  );
+}
+
+const styles = StyleSheet.create({
+  noteCard: {
+    backgroundColor: "#fff",
+    padding: 18,
+    borderRadius: 18,
+    marginBottom: 14,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+
+    elevation: 3,
+  },
+
+  noteText: {
+    fontSize: 17,
+    color: "#111827",
+    fontWeight: "600",
+  },
+
+  favoriteButton: {
+    marginTop: 12,
+    backgroundColor: "#f59e0b",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+
+  favoriteButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  editButton: {
+    marginTop: 12,
+    backgroundColor: "#2563eb",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+
+  editButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  deleteButton: {
+    marginTop: 12,
+    backgroundColor: "#dc2626",
+    padding: 10,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+
+  deleteButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+});

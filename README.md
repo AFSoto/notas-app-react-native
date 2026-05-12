@@ -71,10 +71,10 @@ app/ ├── index.tsx └── note/      └── [id].tsxsrc/ ├── c
 1. Clonar repositorio
 git clone https://github.com/AFSoto/notas-app-react-native.git
 
-2. Instalar dependencias
+1. Instalar dependencias
 npm install
 
-3. Ejecutar proyecto
+1. Ejecutar proyecto
 npx expo start
 
 📦 Generar APK Android

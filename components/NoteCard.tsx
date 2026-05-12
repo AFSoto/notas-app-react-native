@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 interface NoteCardProps {
   item: {
@@ -21,7 +22,12 @@ export default function NoteCard({
   onToggleFavorite,
 }: NoteCardProps) {
   return (
-    <View style={styles.noteCard}>
+    <Pressable
+      style={styles.noteCard}
+      onPress={() =>
+        router.push(`/note/${item.id}`)
+      }
+    >
       <Text style={styles.noteText}>
         {item.favorite ? "⭐" : "☆"} {item.title}
       </Text>
@@ -42,7 +48,7 @@ export default function NoteCard({
       <Pressable style={styles.deleteButton} onPress={() => onDelete(item.id)}>
         <Text style={styles.deleteButtonText}>Eliminar</Text>
       </Pressable>
-    </View>
+    </Pressable>
   );
 }
 

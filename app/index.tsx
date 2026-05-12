@@ -1,6 +1,6 @@
 import { FlatList, Pressable, StyleSheet, Text, TextInput } from "react-native";
-import NoteCard from "../../components/NoteCard";
-import { useNotes } from "../../hooks/useNotes";
+import NoteCard from "../components/NoteCard";
+import { useNotes } from "../hooks/useNotes";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 

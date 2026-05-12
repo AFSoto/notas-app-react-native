@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useNotesStore } from "../store/notes.store";
+
 export interface Note {
   id: string;
   title: string;
@@ -15,7 +17,9 @@ export function useNotes() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  const [notes, setNotes] = useState<Note[]>([]);
+  const notes = useNotesStore((state) => state.notes);
+
+  const setNotes = useNotesStore((state) => state.setNotes);
 
   const filteredNotes = notes.filter((noteItem) =>
     noteItem.title.toLowerCase().includes(search.toLowerCase()),
